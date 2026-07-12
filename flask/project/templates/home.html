@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efficient Monkeypox Diagnosis</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://biologicalpreparations.com/hubfs/MPox%20Blog.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        nav {
+            width: 98%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .title {
+            text-align: center;
+            margin-top: 100px;
+            font-size: 40px;
+            font-weight: 800;
+            padding: 0 20px;
+            color: orange;
+        }
+        /* Prediction result styling */
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 1px 1px 2px black;
+        }
+        button {
+            font-size: 18px;
+            padding: 12px 25px;
+            border-radius: 10px;
+            border: none;
+            background: orange;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkorange;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+
+    <div class="title">
+        Efficient Monkeypox Diagnosis<br>
+        via Attention Based MobileNetV2 Architecture
+    </div>
+
+    <ul style="text-align:center; font-size:20px; font-weight:600; color:rgb(52, 51, 51); list-style-position: inside; margin-top:10px; text-shadow:1px 1px 3px black;">
+        <li>Monkeypox is a viral zoonotic disease with symptoms similar to smallpox.</li>
+        <li>AI-based early detection improves diagnosis speed and accuracy.</li>
+    </ul>
+
+    <div style="text-align:center; margin-top:40px;">
+        <!-- Upload -->
+        <input type="file" accept="image/*" id="imgUpload" style="font-size:18px; padding:10px;">
+        <br><br>
+        <img id="preview" src="" style="max-width:60%; display:none; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.4);" />
+        <br><br>
+        <!-- Predict button -->
+        <button onclick="sendImage()">Predict</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const upload = document.getElementById('imgUpload');
+        const preview = document.getElementById('preview');
+
+        // Preview image
+        upload.addEventListener('change', () => {
+            const file = upload.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        });
+
+        // Send image to backend for prediction
+        function sendImage() {
+            const file = upload.files[0];
+            if (!file) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            fetch("/predict", {  // Flask backend endpoint
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.prediction;
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error predicting image. Make sure Flask server is running.");
+            });
+        }
+    </script>
+
+</body>
+</html>
