@@ -1,0 +1,10 @@
+## Installation
+
+Install the required packages:
+
+```bash
+pip install Flask
+pip install tensorflow
+pip install numpy
+pip install Pillow
+```
