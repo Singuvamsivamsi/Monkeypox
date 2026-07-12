@@ -21,13 +21,19 @@ This project is a deep learning-based web application developed to detect Monkey
 
 ## Project Structure
 ```
-Project/
-│── app.py
-│── requirements.txt
-│── README.md
-│── Project_Report.pdf
-│── templates/
-│── static/
+ flask/project/
+│   ├── static/
+│   │   └── DB9 Team Document 1.pdf
+│   │
+│   └── templates/
+│       ├── about.html
+│       ├── contact.html
+│       └── home.html
+│
+├── app.py
+├── monkeypox_model.h5
+├── README.md
+└── requirements.txt
 ```
 
 ## Installation
